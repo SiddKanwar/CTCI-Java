@@ -63,7 +63,7 @@ public class Test {
 
 	/* 1.2 */
 
-	public static void main(String[] args) {
+	/*-public static void main(String[] args) {
 		String[][] pairs = { { "apple", "papel" }, { "carrot", "tarroc" }, { "hello", "llloh" } };
 		for (String[] pair : pairs) {
 			String word1 = pair[0];
@@ -71,7 +71,7 @@ public class Test {
 			boolean anagram = permutation_B(word1, word2);
 			System.out.println(word1 + ", " + word2 + ": " + anagram);
 		}
-	}
+	}*/
 
 	public static boolean permutation_B(String s, String t) {
 		if (s.length() != t.length())
@@ -105,6 +105,48 @@ public class Test {
 	public static boolean permutation_A(String s, String t) {
 
 		return sortStr(s).equals(sortStr(t));
+	}
+
+	/* 1.3 */
+	public static void main(String[] args) {
+		String str = "Mr John Smith    ";
+		char[] arr = str.toCharArray();
+		int trueLength = findLastCharacter(arr) + 1;
+		replaceSpaces(arr, trueLength);
+		System.out.println("\"" + new String(arr) + "\"");
+	}
+
+	// Assume string has sufficient free space at the end
+	public static void replaceSpaces(char[] str, int trueLength) {
+		int spaceCount = 0, index = 0, i = 0;
+		for (i = 0; i < trueLength; i++) {
+			if (str[i] == ' ') {
+				spaceCount++;
+			}
+		}
+		index = trueLength + spaceCount * 2;
+		if (trueLength < str.length)
+			str[trueLength] = '\0';
+		for (i = trueLength - 1; i >= 0; i--) {
+			if (str[i] == ' ') {
+				str[index - 1] = '0';
+				str[index - 2] = '2';
+				str[index - 3] = '%';
+				index = index - 3;
+			} else {
+				str[index - 1] = str[i];
+				index--;
+			}
+		}
+	}
+
+	public static int findLastCharacter(char[] str) {
+		for (int i = str.length - 1; i >= 0; i--) {
+			if (str[i] != ' ') {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 }
